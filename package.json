@@ -1,0 +1,18 @@
+{
+  "name": "elm-simple-loader",
+  "version": "0.1.0",
+  "description": "A simple Webpack loader for Elm sources. Uses your system Elm installation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/justinwoo/elm-simple-loader.git"
+  },
+  "author": "Justin Woo",
+  "license": "MIT",
+  "dependencies": {
+    "loader-utils": "^0.2.11"
+  }
+}
