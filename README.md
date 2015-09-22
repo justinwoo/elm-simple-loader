@@ -1,4 +1,5 @@
 # Elm Simple Loader
+[npm](https://www.npmjs.com/package/elm-simple-loader)
 
 A simple Webpack loader for Elm sources. Uses your system Elm installation.
 
