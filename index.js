@@ -1,15 +1,21 @@
 var fs = require('fs');
+var path = require('path');
 var spawn = require('child_process').spawn;
 var loaderUtils = require('loader-utils');
+var chalk = require('chalk');
 
-function main(callback, loader) {
+function errorFormat(msg) {
+  return chalk.bold(chalk.red(msg));
+};
+
+function main(callback, loader, sourcePath) {
   fs.unlink('elm.js', function () {
-    compileApp(callback, loader);
+    compileApp(callback, loader, sourcePath);
   });
 }
 
-function compileApp(callback, loader) {
-  var make = spawn('elm-make', [loaderUtils.getRemainingRequest(loader)]);
+function compileApp(callback, loader, sourcePath) {
+  var make = spawn('elm-make', [sourcePath]);
   var weErrored = false;
   var errors = '';
 
@@ -30,7 +36,8 @@ function compileApp(callback, loader) {
     if (weErrored === false) {
       handleNormalClose(callback, loader);
     } else {
-      loader.emitError(errors);
+      console.log(errorFormat('elm-make compilation errors:'));
+      console.log(errorFormat(errors));
       callback('elm-make errors in compilation');
     }
   });
@@ -45,14 +52,15 @@ function handleNormalClose(callback, loader) {
 }
 
 module.exports = function (source) {
-  this.cacheable();
-
   var callback = this.async();
-  var loader = this;
+  var sourcePath = loaderUtils.getRemainingRequest(this);
+
+  this.cacheable();
+  this.addDependency(sourcePath);
 
   if (!callback) {
     throw "can't handle non-async compilation. sorry.";
   }
 
-  main(callback, loader);
+  main(callback, this, sourcePath);
 }
