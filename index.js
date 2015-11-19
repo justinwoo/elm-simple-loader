@@ -15,12 +15,9 @@ function main(callback, loader, sourcePath) {
 }
 
 function compileApp(callback, loader, sourcePath) {
-  var make = spawn('elm-make', ['--output', 'elm.js', sourcePath]);
+  var make = spawn('elm-make', ['--output', 'elm.js', sourcePath], {stdio: [process.stdin, process.stdout, 'pipe']});
   var weErrored = false;
   var errors = '';
-
-  make.stdout.on('data', function (data) {
-  });
 
   make.stderr.on('data', function (data) {
     weErrored = true;
@@ -36,7 +33,7 @@ function compileApp(callback, loader, sourcePath) {
     if (weErrored === false) {
       handleNormalClose(callback, loader);
     } else {
-      console.log(errorFormat('elm-make compilation errors:'));
+      console.log(errorFormat('\nelm-make compilation failed.'));
       console.log(errorFormat(errors));
       callback('elm-make errors in compilation');
     }
