@@ -15,7 +15,7 @@ function main(callback, loader, sourcePath) {
 }
 
 function compileApp(callback, loader, sourcePath) {
-  var make = spawn('elm-make', [sourcePath]);
+  var make = spawn('elm-make', ['--output', 'elm.js', sourcePath]);
   var weErrored = false;
   var errors = '';
 
