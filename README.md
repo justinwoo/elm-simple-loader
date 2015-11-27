@@ -26,3 +26,19 @@ Elm.fullscreen(Elm.App); and whatnot
 ```
 
 Enjoy!
+
+## Note
+
+When you bring in precompiled files (like if `elm.js` contains bits that
+have been built by `elm-make`), you'll end up getting warnings about how
+you're using precompiled files. To shut this error up, you can add this
+to your `module` config:
+
+```js
+[...]
+  module: {
+    loaders: [...],
+    noParse: [/.elm$/] // tells webpack to not parse Elm sources
+  }
+[...]
+```
