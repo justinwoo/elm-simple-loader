@@ -43,7 +43,7 @@ function compileApp(callback, loader, sourcePath) {
 function handleNormalClose(callback, loader) {
   fs.readFile('elm.js', function (err, data) {
     if (err) throw err;
-    var output = '' + data + '\n' + 'module.exports = Elm;';
+    var output = '' + data;
     callback(null, output);
   });
 }
