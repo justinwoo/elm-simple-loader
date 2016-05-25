@@ -1,6 +1,6 @@
 {
   "name": "elm-simple-loader",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A simple Webpack loader for Elm sources. Uses your system Elm installation.",
   "main": "index.js",
   "scripts": {
